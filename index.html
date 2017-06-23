@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>CSS Architectures | Evan Ribey</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -24,8 +24,225 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-markdown>
+					<textarea data-template>
+						# CSS Architectures
+						> The Complex or Carefully Designed Structure of Something
+						<p style="text-align: right; margin-top: 60px; font-size: 50%;">
+							Evan Ribey <br/>
+							June 23, 2017
+						</p>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Troubles in Paradise
+						Stylesheets today are becoming **rigid, redundant, and downright messy**
+						<p class="fragment">(Or maybe that's just me)</p>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Goals Hopes &amp; Dreams
+						Source files should be **Predictable, Reusable, Maintainable, Scalable** as noted by Appfolio Engineering
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Solutions Recognized
+						- Think abstractly, not physically
+						- Decouple or modularize
+						- Give invertebrate blocks of code a spine
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## That's Just an Architecture
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## CSS Architecture Methodologies
+						- BEM
+						- SMACSS
+						- Atomic Design
+						- Even Your Own!
+					</textarea>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							## Block Element Modifier (BEM)
+							Stresses a strict naming methodology combined with a more lax organization style
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## BEM Conventions
+							```
+							|-- blocks/
+							|	|-- menu.scss
+							|	|-- button.scss
+							|	|-- input.scss
+							|-- elements/
+							|	|-- menu__menu-item.scss
+							|-- modifiers/					
+							|	|-- button--theme-green.scss
+							|	|-- input--size-big.scss
+							```
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## BEM Naming
+							> "There are only two hard problems in Computer Science: cache invalidation and naming things." — Phil Karlton
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## BEM Naming
+							```
+							// Highest level
+							.block
+
+							// Lowest level, cannot have children
+							.block__decendent
+
+							// Modifies properties of block
+							.block--modifier
+							```
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							## Scalable and Modular Architecture for CSS (SMACSS)
+							A more modular based method of organizing CSS with additional classifications
+						</textarea>					
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## SMACSS Categorization
+							```
+							|-- base/
+							|	|-- link.scss
+							|	|-- html-body.scss
+							|	|-- fonts.scss
+							|-- layout/
+							|	|-- l-heading.scss
+							|	|-- l-footer.scss
+							|	|-- l-article.scss
+							|-- module/
+							|	|-- button.scss
+							|	|-- product.scss
+							|	|-- product-listing.scss
+							|-- state/
+							|	|-- product-hidden.scss
+							|-- theme/
+							|	|-- button-blue.scss
+							|	|-- product-large.scss
+							```
+						</textarea>					
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## SMACSS Naming Conventions
+							```
+							// layout
+							.l-grid {/* props here */}
+							.l-grid > li {/* props here */}
+
+							// module
+							.product-listing {
+								// properties
+								
+								.product {
+									// properties
+								}
+							}
+
+							// state
+							.product.is-hidden {
+								display: none;
+							}
+							```
+						</textarea>	
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## SMACSS (Performance) Notes
+							- Avoid element selectors outside of base
+							- Right side assignment being a class, not an element
+							- Avoid over-specificity (counteracting rules previously defined)
+							- Minimize the depth of your selection to reduce deps. on specific HTML
+								- `body.article > #main > #content > #intro > p > b`
+						</textarea>	
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							## Atomic Design
+							- A hierarchy created by breaking down components until they cannot be broken down anymore
+							- Takes queues from chemistry and scientific nomenclature
+						</textarea>				
+					</section>
+					<section>
+						<img src="http://atomicdesign.bradfrost.com/images/content/periodic-table.png" />
+					</section>
+					<section>
+						<img src="http://atomicdesign.bradfrost.com/images/content/html-periodic-table.png" />
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Atomic Design Naming
+							```
+							|-- atoms/
+							|	|-- button.scss
+							|	|-- input.scss
+							|-- molecules/
+							|	|-- search-form.scss
+							|-- organisms/
+							|	|-- header.scss
+							|-- templates/
+							|	|-- homepage.scss
+							|	|-- profile.scss
+							|-- pages/
+							|	|-- profile-ben.scss
+							|	|-- profile-jerry.scss
+							```
+						</textarea>				
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							> "Content needs to be structured and structuring alters your content, designing alters content. It’s not ‘content then design’, or ‘content or design’. It’s ‘content and design’." - Mark Boulton
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Atomic Design Notes
+							- Heavily theory based to allow for scalable concrete implementation
+							- Hierarchical in a build up from small to large
+							- Separation and stepping stones for full control
+						</textarea>
+					</section>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## Your Own Choosing
+						Bearing in mind the initial points of **Predictable, Reusable, Maintainable, Scalable** anything can be a CSS Architecture
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						## References
+						- [https://philipwalton.com/articles/css-architecture/](https://philipwalton.com/articles/css-architecture/)
+						- [http://getbem.com/](http://getbem.com/)
+						- [https://smacss.com/book/](https://smacss.com/book/)
+						- [http://atomicdesign.bradfrost.com/](http://atomicdesign.bradfrost.com)
+					</textarea>					
+				</section>
 			</div>
 		</div>
 
